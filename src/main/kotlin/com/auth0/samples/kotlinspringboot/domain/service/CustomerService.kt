@@ -1,11 +1,12 @@
 package com.auth0.samples.kotlinspringboot.domain.service
 
 import com.auth0.samples.kotlinspringboot.api.mapper.CustomerMapper
-import com.auth0.samples.kotlinspringboot.domain.model.Customer
-import com.auth0.samples.kotlinspringboot.domain.repository.CustomerRepository
 import com.auth0.samples.kotlinspringboot.api.request.CreateCustomerRequest
 import com.auth0.samples.kotlinspringboot.api.request.UpdateCustomerRequest
 import com.auth0.samples.kotlinspringboot.api.response.CustomerResponse
+import com.auth0.samples.kotlinspringboot.domain.model.Customer
+import com.auth0.samples.kotlinspringboot.domain.repository.CustomerRepository
+import com.auth0.samples.kotlinspringboot.exception.ObjectNotFoundException
 import org.springframework.stereotype.Service
 
 @Service
@@ -32,6 +33,6 @@ class CustomerService(private val customerRepository: CustomerRepository, privat
 
     private fun exist(id: Long): Customer {
         return customerRepository.findById(id)
-            .orElseThrow { com.auth0.samples.kotlinspringboot.exception.ObjectNotFoundException("ID $id not found") }
+            .orElseThrow { ObjectNotFoundException("ID $id not found") }
     }
 }
